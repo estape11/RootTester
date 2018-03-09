@@ -37,6 +37,7 @@ namespace anpi {
       T temp = T(0);
       T fl= funct(xi);
       T f = funct (xii);
+      T dx=T(0);
       if(fabs(fl)<fabs(f)){
           rs = xi;
           xi=xii;

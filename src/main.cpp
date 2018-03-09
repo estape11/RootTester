@@ -11,6 +11,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <RootInterpolation.hpp>
+#include <RootSecant.hpp>
 #include "RootBisection.hpp"
 
 double test(const double x) {
@@ -34,6 +35,7 @@ int main() {
     std::cout<<"hola"<<std::endl;
     std::cout<<anpi::rootInterpolation<double>(t1,xl,xu)<<std::endl;
     std::cout<<"hola"<<std::endl;
+    std::cout<<anpi::rootSecant<double>(t1,xl,xu)<<std::endl;
     return EXIT_FAILURE;
 }
 

@@ -33,9 +33,17 @@ namespace anpi {
    *         have same sign.
    */
   template<typename T>
-  T rootBrent(const std::function<T(T)>& funct,T xl,T xu,const T eps) {
+  T rootBrent(const std::function<T(T)>& funct,T xl,T xu,const T eps = sqrt(std::numeric_limits<T>::epsilon())) {
+    T fl=funct(xl);
+    T fu=funct(xu);
+    if (stb::abs(fl)<std::abs(fu)){
+      T xSwap=T(xl);
+      xl=T(xu);
+      xu=T(xSwap);
+    }
+    T c=T(xu);
+    bool mflag=true;
 
-    // TODO: Put your code in here!
 
     // Return NaN if no root was found
     return std::numeric_limits<T>::quiet_NaN();
