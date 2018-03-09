@@ -31,34 +31,26 @@ namespace anpi {
    */
   template<typename T>
   T rootSecant(const std::function<T(T)>& funct,T xi,T xii,const T eps=sqrt(std::numeric_limits<T>::epsilon())) {
-    const int max=std::numeric_limits<T>::digits;
-      T rs = T(0);
-      T xl = T(0);
-      T temp = T(0);
-      T fl= funct(xi);
-      T f = funct (xii);
-      T dx=T(0);
-      if(fabs(fl)<fabs(f)){
-          rs = xi;
-          xi=xii;
-          temp = fl;
-          fl = f;
-          f = temp;
-      }else {
-          xl=xi;
-          rs = xii;
-      }
-      for(int j=1; j <= max; j++){
-          dx = (xl - rs) * f/(f - fl);
-          xl = rs;
-          fl = f;
-          rs += dx;
-          f = funct(rs);
-          if(fabs(dx)<eps || f == 0.0)
-              return rs;
-      }
-      // Return NaN if no root was found
-      return std::numeric_limits<T>::quiet_NaN();
+      const int max = std::numeric_limits<T>::digits;
+      T n = T(0);
+      T xm = T(0);
+      T x0 = T(0);
+      T c = T(0);
+      if (funct(xi) * funct(xii) < 0) {
+          do {
+              x0 = (xi * funct(xii) - xii * funct(xi)) / (funct(xii) - funct(xi));
+              c = funct(xi) * funct(x0);
+              xi = xii;
+              xii = x0;
+              n++;
+              if (c == 0)
+                  break;
+              xm = (xi * funct(xii) - xii * funct(xi)) / (funct(xii) - funct(xi));
+          } while (fabs(xm - x0) >= eps);
+          return x0;
+      }else
+          // Return NaN if no root was found
+          return std::numeric_limits<T>::quiet_NaN();
   }
 
 }

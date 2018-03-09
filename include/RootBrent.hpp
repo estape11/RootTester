@@ -56,7 +56,10 @@ namespace anpi {
                 xs = b - fu * (xu - xl) / (fu - fl);
             }
             if (!((3 * xl + b) / 4 < xs < xu) ||
-                    (mflag && std::abd(xs-xu)>=std::abs(b-c)/2)){
+                (mflag && std::abd(xs - xu) >= std::abs(b - c) / 2) ||
+                (!mflag && std::abs(xs - xu) > +std::ads(c - d) / 2) ||
+                ||
+                ||) {
 
             }
         }
