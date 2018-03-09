@@ -10,6 +10,7 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <RootInterpolation.hpp>
 #include "RootBisection.hpp"
 
 double test(const double x) {
@@ -28,8 +29,11 @@ int main() {
 
     std::cout << "Nothing done yet!" << std::endl; // REMOVE-ME!
     double xl = 0.0; // l ́ımite inferior del intervalo 
-    double xu = 2; // l ́ımite superior del intervalo
-    std::cout<<anpi::rootBisection<float>(t1,xl,xu);
+    double xu = 2.0; // l ́ımite superior del intervalo
+    std::cout<<anpi::rootBisection<double>(t1,xl,xu)<<std::endl;
+    std::cout<<"hola"<<std::endl;
+    std::cout<<anpi::rootInterpolation<double>(t1,xl,xu)<<std::endl;
+    std::cout<<"hola"<<std::endl;
     return EXIT_FAILURE;
 }
 
