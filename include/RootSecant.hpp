@@ -30,10 +30,29 @@ namespace anpi {
    * @return root found, or NaN if no root could be found
    */
   template<typename T>
-  T rootSecant(const std::function<T(T)>& funct,T xi,T xii,const T eps) {
-
-    // TODO: Put your code in here!
-    
+  T rootSecant(const std::function<T(T)>& funct,T xi,T xii,const T eps=sqrt(std::numeric_limits<T>::epsilon())) {
+    const int max=std::numeric_limits<T>::digits;
+    T fl= funct(xi);
+    T f = funct (xii);
+    if(fabs(fl)<fabs(f)){
+      T rs = xi;
+      xi=xii;
+      temp = fl;
+      fl = f;
+      f = temp;
+    }else {
+      T xl=x1;
+      rs = x2;
+    }
+    for(int j=1; j <= max; j++){
+      T dx = (xl - rs) * f/(f - fl);
+      xl = rs;
+      fl = f;
+      rs += dx;
+      f = funct(rs);
+      if(fabs(dx)<eps || f == 0.0)
+        return rs;
+    }
     // Return NaN if no root was found
     return std::numeric_limits<T>::quiet_NaN();
   }
