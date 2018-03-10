@@ -33,7 +33,7 @@ namespace anpi {
      */
     template<typename T>
     T rootNewtonRaphson(const std::function<T(T)> &funct, T xi, const T eps) {
-        const int maxi = std::numeric_limits<T>::digits;
+        const int maxi = std::numeric_limits<T>::digits*100;
         T h = 0.0000001;
         T xnext = 0;
         T dxi = 0;
@@ -42,9 +42,7 @@ namespace anpi {
             dxi = (funct(xi + h) - funct(xi)) / h;
 
             xnext = xi - (funct(xi) / dxi);
-
-            if (((xnext - xi) / xnext) < eps / 100) { return xnext; }
-
+            if (((xnext - xi) / xnext) < eps / 100)  return xnext;
             xi = xnext;
         }
 
