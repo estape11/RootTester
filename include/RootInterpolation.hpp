@@ -35,13 +35,16 @@ namespace anpi {
     template<typename T>
     T rootInterpolation(const std::function<T(T)> &funct, T xl, T xu,
                         const T eps = sqrt(std::numeric_limits<T>::epsilon())) {
-        const int maxi = 2 * std::numeric_limits<T>::digits;
+        const int maxi = std::numeric_limits<T>::digits*100;
+        if(xl>xu){
+            std::swap(xl,xu);
+        }
         T xr = xl;
         T fl = funct(xl);
         T fu = funct(xu);
         T ea = T();
         int iu(0), il(0); // contabiliza usos de cada extremo
-        for (int i = maxi * 100; i > 0; i--) {
+        for (int i = 0; i < maxi; i++) {
             T xrold(xr);
             xr = xu - fu * (xl - xu) / (fl - fu); //
             T fr = funct(xr);
