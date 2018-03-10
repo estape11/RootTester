@@ -41,7 +41,7 @@ int main() {
     std::cout<<"hola"<<std::endl;
     std::cout<<anpi::rootBrent<double>(t1 ,xl,xu)<<std::endl;
     std::cout<<"hola"<<std::endl;
-    std::cout<<anpi::rootNewtonRaphson<double>(t1 ,xl,xu)<<std::endl;
+    std::cout<<anpi::rootNewtonRaphson<double>(t1 ,xl)<<std::endl;
     return EXIT_FAILURE;
 }
 

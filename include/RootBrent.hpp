@@ -47,7 +47,7 @@ namespace anpi {
         T d = T(0);
         T fs = T(0);
         bool mflag = true;
-        for (int i = 0; i<maxi; i++) {
+        for (int i = 0; i < maxi; i++) {
             if (fl != fc && fu != fc) {
                 xs = (xl * fu * fc) / ((fl - fu) * (fl - fc)) + (xu * fl * fc) / ((fu - fl) * (fu - fc)) +
                      (c * fl * fc) / ((fc - fl) * (fc - fu));

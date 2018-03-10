@@ -32,8 +32,8 @@ namespace anpi {
      *         have same sign.
      */
     template<typename T>
-    T rootNewtonRaphson(const std::function<T(T)> &funct, T xi, const T eps=sqrt(std::numeric_limits<T>::epsilon())) {
-        const int maxi = std::numeric_limits<T>::digits*1000;
+    T rootNewtonRaphson(const std::function<T(T)> &funct, T xi, const T eps = sqrt(std::numeric_limits<T>::epsilon())) {
+        const int maxi = std::numeric_limits<T>::digits * 1000;
         T h = 0.000000001;
         T xnext = 0;
         T dxi = 0;
@@ -42,7 +42,7 @@ namespace anpi {
             dxi = (funct(xi + h) - funct(xi)) / h;
 
             xnext = xi - (funct(xi) / dxi);
-            if (std::abs((xnext - xi)/xnext)*T(100) < eps || funct(xnext)==0 )  return xnext;
+            if (std::abs((xnext - xi) / xnext) * T(100) < eps || funct(xnext) == 0) return xnext;
             xi = xnext;
         }
 

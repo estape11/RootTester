@@ -33,10 +33,11 @@ namespace anpi {
      *         have same sign.
      */
     template<typename T>
-    T rootBisection(const std::function<T(T)> &funct, T xl, T xu, const T eps=sqrt(std::numeric_limits<T>::epsilon())) {
-        const int maxi=std::numeric_limits<T>::digits*100;
-        if(xl>xu){
-            std::swap(xl,xu);
+    T
+    rootBisection(const std::function<T(T)> &funct, T xl, T xu, const T eps = sqrt(std::numeric_limits<T>::epsilon())) {
+        const int maxi = std::numeric_limits<T>::digits * 100;
+        if (xl > xu) {
+            std::swap(xl, xu);
         }
         T xr = xl;
         T fl = funct(xl);
@@ -58,13 +59,11 @@ namespace anpi {
                 ea = T(0);
                 xr = (std::abs(fl) < std::numeric_limits<T>::epsilon()) ? xl : xr;
             }
-            if (ea < eps/10) return xr;
+            if (ea < eps / 10) return xr;
         }
-
         // Return NaN if no root was found
         return std::numeric_limits<T>::quiet_NaN();
     }
-
 }
 
 #endif
