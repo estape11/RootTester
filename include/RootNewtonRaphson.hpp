@@ -18,28 +18,40 @@
 #define ANPI_NEWTON_RAPHSON_HPP
 
 namespace anpi {
-  
-  /**
-   * Find the roots of the function funct looking by means of the
-   * Newton-Raphson method
-   *
-   * @param funct a functor of the form "T funct(T x)"
-   * @param xi initial root guess
-   * 
-   * @return root found, or NaN if none could be found.
-   *
-   * @throws anpi::Exception if inteval is reversed or both extremes
-   *         have same sign.
-   */
-  template<typename T>
-  T rootNewtonRaphson(const std::function<T(T)>& funct,T xi,const T eps) {
 
-    // TODO: Put your code in here!
+    /**
+     * Find the roots of the function funct looking by means of the
+     * Newton-Raphson method
+     *
+     * @param funct a functor of the form "T funct(T x)"
+     * @param xi initial root guess
+     *
+     * @return root found, or NaN if none could be found.
+     *
+     * @throws anpi::Exception if inteval is reversed or both extremes
+     *         have same sign.
+     */
+    template<typename T>
+    T rootNewtonRaphson(const std::function<T(T)> &funct, T xi, const T eps) {
+        const int maxi = std::numeric_limits<T>::digits;
+        T h = 0.0000001;
+        T xnext = 0;
+        T dxi = 0;
 
-    // Return NaN if no root was found
-    return std::numeric_limits<T>::quiet_NaN();
-  }
+        for (int i = maxi; i > 0; i--) {
+            dxi = (funct(xi + h) - funct(xi)) / h;
+
+            xnext = xi - (funct(xi) / dxi);
+
+            if (((xnext - xi) / xnext) < eps / 100) { return xnext; }
+
+            xi = xnext;
+        }
+
+        // Return NaN if no root was found
+        return std::numeric_limits<T>::quiet_NaN();
+    }
 
 }
-  
+
 #endif
