@@ -34,7 +34,12 @@ namespace anpi {
      */
     template<typename T>
     T rootBisection(const std::function<T(T)> &funct, T xl, T xu, const T eps=sqrt(std::numeric_limits<T>::epsilon())) {
-        const int maxi=std::numeric_limits<T>::digits;
+        const int maxi=std::numeric_limits<T>::digits*100;
+        if(xl>xu){
+            T xSwap = xl;
+            xl = xu;
+            xu = xSwap;
+        }
         T xr = xl;
         T fl = funct(xl);
         T ea = T();
@@ -55,7 +60,7 @@ namespace anpi {
                 ea = T(0);
                 xr = (std::abs(fl) < std::numeric_limits<T>::epsilon()) ? xl : xr;
             }
-            if (ea < eps) return xr;
+            if (ea < eps/10) return xr;
         }
 
         // Return NaN if no root was found

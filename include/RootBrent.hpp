@@ -35,9 +35,10 @@ namespace anpi {
     template<typename T>
     T rootBrent(const std::function<T(T)> &funct, T xl, T xu, const T eps = sqrt(std::numeric_limits<T>::epsilon())) {
         // xl=a xu=b
+        const int maxi = std::numeric_limits<T>::digits;
         T fl = funct(xl);
         T fu = funct(xu);
-        if (stb::abs(fl) < std::abs(fu)) {
+        if (std::abs(fl) < std::abs(fu)) {
             T xSwap = T(xl);
             xl = T(xu);
             xu = T(xSwap);
@@ -47,20 +48,45 @@ namespace anpi {
         T c = T(xl);
         T fc = funct(c);
         T xs = T(0);
+        T d = T(0);
+        T fs=T(0);
         bool mflag = true;
         for (int i = maxi; i > 0; i--) {
             if (fl != fc && fu != fc) {
                 xs = (xl * fu * fc) / ((fl - fu) * (fl - fc)) + (xu * fl * fc) / ((fu - fl) * (fu - fc)) +
                      (c * fl * fc) / ((fc - fl) * (fc - fu));
             } else {
-                xs = b - fu * (xu - xl) / (fu - fl);
+                xs = xu - fu * (xu - xl) / (fu - fl);
             }
-            if (!((3 * xl + b) / 4 < xs < xu) ||
-                (mflag && std::abd(xs - xu) >= std::abs(b - c) / 2) ||
-                (!mflag && std::abs(xs - xu) > +std::ads(c - d) / 2) ||
-                ||
-                ||) {
-
+            if (!((3 * xl + xu) / 4 < xs < xu) ||
+                (mflag && std::abs(xs - xu) >= std::abs(xu - c) / 2) ||
+                (!mflag && std::abs(xs - xu) > +std::abs(c - d) / 2) ||
+                (mflag && std::abs(xu - c) < eps) ||
+                (!mflag && std::abs(c - d) < eps)) {
+                xs=(xl+xu)/2;
+                mflag=true;
+            } else{
+                mflag=false;
+            }
+            fs=funct(xs);
+            d=c;
+            c=xu;
+            if(fl*fs<0){
+                xu=xs;
+            } else{
+                xl=xs;
+            }
+            fl = funct(xl);
+            fu = funct(xu);
+            if (std::abs(fl) < std::abs(fu)) {
+                T xSwap = T(xl);
+                xl = T(xu);
+                xu = T(xSwap);
+                fl = funct(xl);
+                fu = funct(xu);
+            }
+            if (std::abs(xu-xl)<eps){
+                return xs;
             }
         }
 

@@ -38,7 +38,7 @@ namespace anpi {
 
         /// Second testing function for roots e^(-x²) = e^(-(x-3)²/3 )
         template<typename T>
-        T t2(const T x) { return std::exp(-x * x) - std::exp(-sqr(x - T(3)) / T(3)); }
+        T t2(const T x) { return std::exp(-x * x) - std::exp(-(x - T(3))*(x - T(3)) / T(3)); }
 
         /// Third testing function for roots x² = atan(x)
         template<typename T>
