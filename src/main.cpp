@@ -13,6 +13,7 @@
 #include <RootInterpolation.hpp>
 #include <RootSecant.hpp>
 #include <RootBrent.hpp>
+#include <RootNewtonRaphson.hpp>
 #include "RootBisection.hpp"
 
 double test(const double x) {
@@ -30,15 +31,17 @@ int main() {
     // Put your main code in here
 
     std::cout << "Nothing done yet!" << std::endl; // REMOVE-ME!
-    double xl =2.0; // l ́ımite inferior del intervalo
-    double xu = 1.0; // l ́ımite superior del intervalo
-    std::cout<<anpi::rootBisection<double>(t2,xl,xu)<<std::endl;
+    double xl =0.0; // l ́ımite inferior del intervalo
+    double xu =1.0; // l ́ımite superior del intervalo
+    std::cout<<anpi::rootBisection<double>(t1,xl,xu)<<std::endl;
     std::cout<<"hola"<<std::endl;
-    std::cout<<anpi::rootInterpolation<double>(t2,xl,xu)<<std::endl;
+    std::cout<<anpi::rootInterpolation<double>(t1,xl,xu)<<std::endl;
     std::cout<<"hola"<<std::endl;
-    std::cout<<anpi::rootSecant<double>(t2,xl,xu)<<std::endl;
+    std::cout<<anpi::rootSecant<double>(t1,xl,xu)<<std::endl;
     std::cout<<"hola"<<std::endl;
-    std::cout<<anpi::rootBrent<double>(t2 ,xl,xu)<<std::endl;
+    std::cout<<anpi::rootBrent<double>(t1 ,xl,xu)<<std::endl;
+    std::cout<<"hola"<<std::endl;
+    std::cout<<anpi::rootNewtonRaphson<double>(t1 ,xl,xu)<<std::endl;
     return EXIT_FAILURE;
 }
 
