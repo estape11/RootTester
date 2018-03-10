@@ -67,12 +67,12 @@ namespace anpi {
                 iu++;
                 if (iu >= 2) {
                     fl /= T(2);
-                } else {
-                    ea = T(0);
-                    xr = (fl == T(0)) ? xl : xu; //evaluo para ver si es cero
                 }
+            } else {
+                ea = T(0);
+                xr = (fl == T(0)) ? xl : xu; //evaluo para ver si es cero
             }
-            if (ea < eps / 100) return xr;
+            if (ea < eps) return xr;
         }
         // Return NaN if no root was found
         return std::numeric_limits<T>::quiet_NaN();
